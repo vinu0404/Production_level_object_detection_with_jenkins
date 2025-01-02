@@ -7,6 +7,8 @@ IMAGE_PATH="CollectedImages"
 
 labels=['Hello','Yes','Luv U','Please']
 
+
+
 num_images = 5
 
 for label in labels:
