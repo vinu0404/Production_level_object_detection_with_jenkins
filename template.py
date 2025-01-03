@@ -2,9 +2,10 @@ import os
 from pathlib import Path
 import logging
 
-logging.basicConfig(level=logging.INFO,format='[%(asctime)s] :%(message)s :')
+logging.basicConfig(level=logging.INFO, format='[%(asctime)s]: %(message)s:')
 
-project_name="sign_language"
+project_name = "signLanguage"
+
 
 list_of_files = [
     "data/.gitkeep",
@@ -38,19 +39,22 @@ list_of_files = [
 
 ]
 
+
 for filepath in list_of_files:
-    filepath=Path(filepath)
+    filepath = Path(filepath)
 
-    filedir,filename=os.path.split(filepath)
+    filedir, filename = os.path.split(filepath)
+
+    if filedir !="":
+        os.makedirs(filedir, exist_ok=True)
+        logging.info(f"Creating directory: {filedir} for the file {filename}")
+
     
-    if filedir!="":
-        os.makedirs(filedir,exist_ok=True)
-        logging.info(f"creating directory : {filedir} for the filename : {filename}")
-
-    if (not os.path.exists(filename)) or (os.path.getsize(filename)==0):
-        with open(filepath,'w') as f:
+    if(not os.path.exists(filename)) or (os.path.getsize(filename) == 0):
+        with open(filepath, 'w') as f:
             pass
-        logging.info(f"creating empty file :{filename}")
+            logging.info(f"Creating empty file: {filename}")
 
+    
     else:
-        logging.info(f"{filename} exist ")
+        logging.info(f"{filename} is already created")

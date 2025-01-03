@@ -2,33 +2,30 @@ import os
 import cv2
 import time
 import uuid
-import logging
-IMAGE_PATH="CollectedImages"
 
-labels=['Hello','Yes','Luv U','Please']
+IMAGE_PATH = "CollectedImages"
 
+labels = ['Hello', 'Yes', 'No', 'Thanks', 'IloveYou', 'Please']
 
-
-num_images = 5
+number_of_images = 5
 
 for label in labels:
-    img_path=os.path.join(IMAGE_PATH,label)
-    os.makedirs(img_path,exist_ok=True)
+    img_path = os.path.join(IMAGE_PATH, label)
+    os.makedirs(img_path)
 
-
-    cap=cv2.VideoCapture(0)  #opening camera
-    logging.info(f"opening camera")
+    #open camera 
+    cap = cv2.VideoCapture(0)
+    print(f"Collecting images for {label}")
     time.sleep(3)
 
-
-    for imgnum in range(num_images):
-        ret,frame =  cap.read()
-        imagename=os.path.join(IMAGE_PATH,label,label + '.' + '{}.jpg' .format(str(uuid.uuid1())))
-        cv2.imwrite(imagename,frame)
-        cv2.imshow('frame',frame)
+    for imgnum in range(number_of_images):
+        ret,frame = cap.read()
+        imagename=os.path.join(IMAGE_PATH,label,label+'.'+'{}.jpg'.format(str(uuid.uuid1())))
+        cv2.imwrite(imagename, frame)
+        cv2.imshow('frame', frame)
         time.sleep(2)
 
         if cv2.waitKey(1) & 0xFF==ord('q'):
             break
-
+    
     cap.release()
